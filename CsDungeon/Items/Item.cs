@@ -63,7 +63,7 @@ namespace CsDungeon
             {
                 prop_item_class = ITEM_CLASS.DAMAGE;
                 prop_iItem_value = random.Next(2, 10);
-                m_sModifiateElement = prop_item_type.ToString().Replace(prop_item_class.ToString(), "");
+                m_sModifiateElement = prop_item_type.ToString().Replace(prop_item_class.ToString(), ""); 
                 prop_item_message = "Vous avez ameliore votre  " + m_sModifiateElement + " de " + prop_iItem_value ;
             }
             else if (prop_item_type.ToString().Contains(ITEM_CLASS.RESTORE.ToString()))

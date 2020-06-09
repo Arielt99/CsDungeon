@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CsDungeon
 {
-    abstract class Character
+    abstract class Character : CommunicatingClass
     {
         private int m_iPvPoint;
         public int prop_iPvPoint 

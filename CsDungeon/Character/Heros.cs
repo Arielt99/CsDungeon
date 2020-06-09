@@ -12,6 +12,7 @@ namespace CsDungeon
             string m_sName;
             Protection m_Protection;
         #endregion
+        public event EventHandler<DeathEventArgs> HerosDeath;
         public Protection ChoosenProtectionProp { get; set; }
         #region Contructeur
 
@@ -23,17 +24,17 @@ namespace CsDungeon
         {
             m_sName = p_sName;
 
-            UserInterface.displayInfo(Program.DebugMode, "Naissance du hero : ", m_sName);
-            UserInterface.displayInfo(Program.DebugMode, "avec : ", prop_iPvPoint.ToString(), " pv");
+            informePlayer(this, "Naissance du hero : "+ m_sName, MESSAGE_TYPE.INFO);
+            informePlayer(this, "avec : "+ prop_iPvPoint.ToString()+ " pv", MESSAGE_TYPE.INFO);
             HeroArsenal = new Arsenal();
-            UserInterface.displayInfo(Program.DebugMode, "voici l'arsenal du hero :");
+            informePlayer(this, "voici l'arsenal du hero :", MESSAGE_TYPE.INFO);
             foreach (var item in HeroArsenal)
             {
-                UserInterface.displayInfo(Program.DebugMode, item.ToString());
+                informePlayer(this, item.ToString(), MESSAGE_TYPE.INFO);
             }
             HeroArsenal.WeaponUsed = Arsenal.get(WEAPON_TYPE.SWORD);
 
-            UserInterface.displayInfo(Program.DebugMode, "vous êtes arme de :", HeroArsenal.WeaponUsed.WeaponTypeProp.ToString());
+            informePlayer(this, "vous êtes arme de :"+ HeroArsenal.WeaponUsed.WeaponTypeProp.ToString(), MESSAGE_TYPE.INFO);
             m_Weapon = HeroArsenal.WeaponUsed;
 
         }
@@ -42,20 +43,25 @@ namespace CsDungeon
         public override void Attack(Character character)
         {
             Monster m = (Monster)character;
-            UserInterface.displayInfo(Program.DebugMode, "Vous attaquez un ", m.GetMonsterType().ToString());
+            informePlayer(this, "Vous attaquez un "+ m.GetMonsterType().ToString(), MESSAGE_TYPE.WINNING_FIGHT);
             m.RemoveLifePoint(m_Weapon);
         }
 
         public override void RemoveLifePoint(Weapon p_MonsterWeapon)
         {
             prop_iPvPoint -= p_MonsterWeapon.WeaponDamage;
-            UserInterface.displayInfo(Program.DebugMode, "Le hero a ", prop_iPvPoint.ToString(), "pv");
+            informePlayer(this, "Le hero a "+ prop_iPvPoint.ToString()+ "pv", MESSAGE_TYPE.HIT_RECEIVED);
             if (IsDead)
             {
+
                 IsDead = true;
-                UserInterface.displayInfo(Program.DebugMode, "le hero est mort");
+                HerosDeath?.Invoke(this, new DeathEventArgs(){
+                    DeathCause = "le hero s'est fait poutrer par un monstre",
+                    MessageImportantType = MESSAGE_TYPE.DEAD
+                }); 
             }
         }
+
 
         /*        public void FindWeapon(Weapon myWeapon)
                 {

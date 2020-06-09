@@ -43,12 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Character\DeathEventArgs.cs" />
     <Compile Include="Character\Monsters\Barbarian.cs" />
     <Compile Include="Character\Character.cs" />
     <Compile Include="Character\Heros.cs" />
     <Compile Include="Character\Monsters\Dragon.cs" />
     <Compile Include="Character\Monsters\Thief.cs" />
     <Compile Include="Character\Monsters\Wizard.cs" />
+    <Compile Include="Communication\CommunicatingClass.cs" />
     <Compile Include="Communication\UserInterface.cs" />
     <Compile Include="DungeonElement\DragonsLair.cs" />
     <Compile Include="DungeonElement\Dungeon.cs" />
