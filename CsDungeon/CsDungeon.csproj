@@ -52,6 +52,7 @@
     <Compile Include="Character\Monsters\Wizard.cs" />
     <Compile Include="Communication\CommunicatingClass.cs" />
     <Compile Include="Communication\UserInterface.cs" />
+    <Compile Include="Communication\WorkInProgressException.cs" />
     <Compile Include="DungeonElement\DragonsLair.cs" />
     <Compile Include="DungeonElement\Dungeon.cs" />
     <Compile Include="Character\Monster.cs" />

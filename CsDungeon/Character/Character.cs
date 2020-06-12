@@ -24,7 +24,7 @@ namespace CsDungeon
 
         public Arsenal HeroArsenal { get; set; }
 
-        public bool IsDead{ get; set; }
+        public virtual bool IsDead{ get; set; }
 
         protected Weapon m_Weapon;
 

@@ -12,6 +12,8 @@ namespace CsDungeon
 
         DragonsLair m_DragonsLair;
 
+        public bool GameImplemented = false;
+
         public Dungeon()
         {
             Random rand = new Random(DateTime.Now.Millisecond);
@@ -25,29 +27,42 @@ namespace CsDungeon
 
         internal void EnterDungeon(Heros currentHero)
         {
-            UserInterface.displayInfo(Program.DebugMode, "Il entre dans le dongeon");
+            try
+            {
+                GameImplemented = true;
 
-            for (int i = 0; i < m_ArrayRoom.Length; i++){
+                UserInterface.displayInfo(Program.DebugMode, "Il entre dans le dongeon");
+
+                for (int i = 0; i < m_ArrayRoom.Length; i++)
+                {
+                    if (!currentHero.IsDead)
+                    {
+                        UserInterface.displayInfo(Program.DebugMode, "Il entre dans la salle n°", (i + 1).ToString());
+                        m_ArrayRoom[i].Enter(currentHero);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                };
                 if (!currentHero.IsDead)
                 {
-                    UserInterface.displayInfo(Program.DebugMode, "Il entre dans la salle n°", (i+1).ToString());
-                    m_ArrayRoom[i].Enter(currentHero);
+                    UserInterface.displayInfo(Program.DebugMode, "Maisonette du dragon");
+                    m_DragonsLair.Enter(currentHero);
                 }
                 else
                 {
-                    break;
+                    UserInterface.displayInfo(Program.DebugMode, "Rééssayez une prochaine fois");
                 }
 
-            };
-            if (!currentHero.IsDead)
-            {
-                UserInterface.displayInfo(Program.DebugMode, "Maisonette du dragon");
-                m_DragonsLair.Enter(currentHero);
             }
-            else
+            catch (Exception)
             {
-                UserInterface.displayInfo(Program.DebugMode, "Rééssayez une prochaine fois");
+                throw new WorkInProgressException();
             }
+
+
         }
 
 
