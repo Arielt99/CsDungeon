@@ -29,7 +29,14 @@ namespace CsDungeon
         {
             try
             {
-                GameImplemented = true;
+                if (GameImplemented == false)
+                {
+                    UserInterface.displayInfo(Program.DebugMode, "it rules");
+                }
+                else
+                {
+                    throw new WorkInProgressException();
+                }
 
                 UserInterface.displayInfo(Program.DebugMode, "Il entre dans le dongeon");
 
